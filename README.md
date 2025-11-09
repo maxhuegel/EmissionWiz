@@ -136,9 +136,24 @@ In src/app/app.py:
 - Aggregation: monthly → annual means; countries require sufficient monthly coverage.
 - Country harmonization: alias map; some small/disputed territories may be excluded.
 
+## Data Source (CRU CY v4.09 – TMP)
+
+We use **CRU CY v4.09 Country Averages: TMP** from the University of East Anglia’s Climatic Research Unit (CRU):
+`https://crudata.uea.ac.uk/cru/data/hrg/cru_ts_4.09/crucy.2503061057.v4.09/countries/tmp/`
+
+* **What it is:** Country-level, area-weighted **monthly mean temperature (°C)** series derived from CRU TS v4.09.
+* **Coverage:** **1901–2024** (per CRU TS v4.09).
+* **Format:** One `.per` time series file per country.
+* **How we use it:** Parse monthly series, compute anomalies vs **1991–2020**, then aggregate to annual means for the app and model training.
+
+**Licence & attribution:** Open Government Licence. Please acknowledge **CRU (University of East Anglia)** and **NCAS**.
+
 ## Architecture & Tools
 
 ### Overview
+
+![ALT_TEXT](docs/figs/architecture_overview.png)
+
 
 ClimateWiz transforms **monthly country temperatures** (~1901–latest data year) into **anomalies relative to the 1991–2020 baseline** and produces **ML forecasts** (monthly, then aggregated to **annual means**). The Streamlit app (embedding Globe.gl/Three.js) visualizes **Anomaly (ΔT)** and **Absolute (°C)**, with a country panel showing **trend (°C/decade)** and a mini time series. For stable multi-step forecasts we use **damping**, **clipping**, and **climatology blending**.
 
@@ -166,6 +181,8 @@ ClimateWiz transforms **monthly country temperatures** (~1901–latest data year
   * **Final artifacts:** monthly forecasts + annual aggregates → `models/*`, `reports/*`; app tables such as `src/data/temperature/temp_per_country/yearly_temp_aggregated/country_year.csv`.
 
 ### App Architecture (UI)
+
+![ALT_TEXT](docs/figs/app_architecture.png)
 
 * **Frontend:** Streamlit (`src/app/app.py`) with `streamlit.components.v1.html` embedding **Globe.gl/Three.js**.
 * **Interaction:** Mode toggle (ΔT/°C), year slider, hover tooltips, click → country panel (snapshot, °C/decade trend, mini chart), **colorblind palette**, PNG export, in-app Guide.
