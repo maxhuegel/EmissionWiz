@@ -166,11 +166,24 @@ def main():
             for h in range(1, HMAX+1):
                 k_tgt = k_cut + h
                 y_tgt, m_tgt = key_to_ym(k_tgt)
+                # --- robust climatology + optional truth (Zukunft erlaubt) ---
+                # 1) Climatology ermitteln: erst Lookup L, sonst Monatsmittel als Fallback
                 try:
                     clim = float(L.loc[(country, k_tgt), "clim_temp_c"])
+                except KeyError:
+                    # Monatsmittel pro Land/Monat aus Historie als Fallback
+                    if "CLM_MAP" not in globals():
+                        # einmalig aufbauen: mean(clim_temp_c) je (country, month)
+                        _clm = anom.groupby(["country", "month"], as_index=False)["clim_temp_c"].mean()
+                        globals()["CLM_MAP"] = {(str(r["country"]).strip(), int(r["month"])): float(r["clim_temp_c"])
+                                                for _, r in _clm.iterrows()}
+                    clim = float(globals()["CLM_MAP"].get((country, m_tgt), np.nan))
+
+                # 2) Truth ist für Zukunft nicht vorhanden -> optional/NaN
+                try:
                     truth_c = float(L.loc[(country, k_tgt), "temp_c"])
                 except KeyError:
-                    break
+                    truth_c = np.nan
 
                 # Feature-Vektor aus State
                 mon_sin = math.sin(2*math.pi*m_tgt/12.0)
