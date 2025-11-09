@@ -1,0 +1,11 @@
+{
+  "timestamp": "2025-11-09T01:02:06.273289Z",
+  "anomalies": "data_clean/monthly_anomalies.csv",
+  "countries": 291,
+  "rows_anomalies": 433008,
+  "global_summary": {
+    "median_autocorr_lag12": 0.30872505429415187,
+    "median_trend_decade_c": 0.08870618302139856,
+    "share_autocorr_lag12_pos": 0.9965635738831615
+  }
+}

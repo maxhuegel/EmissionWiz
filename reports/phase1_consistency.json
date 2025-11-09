@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-11-09T01:09:55.211672Z",
+  "climatology_file": "data_clean/monthly_climatology_1981_2010.csv",
+  "anomalies_file": "data_clean/monthly_anomalies.csv",
+  "monthly_clean_file": "data_clean/monthly_clean.csv",
+  "reference_periods_file": "reports/reference_periods.csv",
+  "outliers_summary_file": "reports/outliers_summary.csv",
+  "sanity_persistence_file": "reports/sanity_persistence.csv",
+  "countries": 291,
+  "share_climatology_12_ok": 1.0,
+  "share_rows_match_clean": 0.0,
+  "share_mean_anom_ref_ok": 1.0
+}

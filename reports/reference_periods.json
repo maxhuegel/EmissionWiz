@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-11-09T00:30:06.370938Z",
+  "input_dir": "src/data/temperature/temp_per_country",
+  "min_per_month": 25,
+  "default_window": [
+    1981,
+    2010
+  ],
+  "rowcount": 291,
+  "n_ok_full": 291,
+  "n_fallback": 0
+}
