@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-09T02:49:56.948434Z",
+  "timestamp": "2025-11-09T14:43:15.545201Z",
   "anomalies": "data_clean/monthly_anomalies.csv",
   "cutoff_freq": "yearly",
   "horizons_max": 60,
